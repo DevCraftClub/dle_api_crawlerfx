@@ -1,2 +1,7 @@
-package de.maharder.dbcrawler;public class Launcher {
+package de.maharder.dbcrawler;
+
+public class Launcher {
+	public static void main(String[] args) {
+		CrawlerApplication.main(args);
+	}
 }
