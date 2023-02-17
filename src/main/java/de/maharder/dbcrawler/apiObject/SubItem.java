@@ -2,51 +2,70 @@ package de.maharder.dbcrawler.apiObject;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Setter
-@Getter
-public class Item {
+public class SubItem {
 
 	@JsonProperty("name")
 	@JsonAnyGetter
 	private String name;
-	@JsonProperty("item")
-	@JsonAnyGetter
-	private List<Item> item = new ArrayList<>();
-	@JsonProperty("description")
-	@JsonAnyGetter
-	private String description;
-	@JsonProperty("event")
-	@JsonAnyGetter
-	private List<Event> event = new ArrayList<>();
 	@JsonProperty("protocolProfileBehavior")
 	@JsonAnyGetter
 	private ProtocolProfileBehavior protocolProfileBehavior;
-	@JsonProperty("response")
-	@JsonAnyGetter
-	private List<String> response = new ArrayList<>();
 	@JsonProperty("request")
 	@JsonAnyGetter
 	private Request request;
-	public void addEvent(Event event) {
-		if (!this.event.contains(event)) {
-			this.event.add(event);
-		}
-	}
-	public void addResponse(String response) {
+	@JsonProperty("description")
+	@JsonAnyGetter
+	private String description;
+	@JsonProperty("response")
+	@JsonAnyGetter
+	private List<Response> response = new ArrayList<>();
+	public void addResponse(Response response) {
         if (!this.response.contains(response)) {
             this.response.add(response);
         }
     }
-	public void addItem(Item item) {
-		if (!this.item.contains(item)) {
-			this.item.add(item);
-		}
+
+	public String getName() {
+		return name;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public ProtocolProfileBehavior getProtocolProfileBehavior() {
+		return protocolProfileBehavior;
+	}
+
+	public void setProtocolProfileBehavior(ProtocolProfileBehavior protocolProfileBehavior) {
+		this.protocolProfileBehavior = protocolProfileBehavior;
+	}
+
+	public Request getRequest() {
+		return request;
+	}
+
+	public void setRequest(Request request) {
+		this.request = request;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public List<Response> getResponse() {
+		return response;
+	}
+
+	public void setResponse(List<Response> response) {
+		this.response = response;
+	}
 }
