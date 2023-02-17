@@ -1,7 +1,5 @@
-package de.maharder.dbcrawler.controller;
+package de.maharder.dbcrawler;
 
-import de.maharder.dbcrawler.CrawlerApplication;
-import de.maharder.dbcrawler.variables.AppOptions;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -11,12 +9,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
 public class Settings {
-//	private static final URL SETTINGS_FILE = Settings.class.getResource("settings.xml");
-	private static final URL SETTINGS_FILE = CrawlerApplication.class.getResource("assets/settings.xml");
+	private static final URL SETTINGS_FILE = CrawlerApplication.class.getResource("settings.xml");
 
 	public static AppOptions loadSettings() {
 
@@ -35,22 +33,17 @@ public class Settings {
 		}
 	}
 
-	public static void saveSettings(AppOptions settings) {
+	public static void saveSettings(AppOptions settings) throws URISyntaxException {
 
-		try {
-			File file = new File(SETTINGS_FILE.getPath());
+		File file = new File(SETTINGS_FILE.toURI());
 
-			try (FileOutputStream stream = new FileOutputStream(file)) {
-				JAXBContext context = JAXBContext.newInstance(AppOptions.class);
-				Marshaller marshaller = context.createMarshaller();
-				marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-				marshaller.marshal(settings, stream);
-			} catch (JAXBException | IOException ex) {
-				ex.printStackTrace();
-			}
-
-		} catch (Exception ex) {
-			throw new RuntimeException(ex);
+		try (FileOutputStream stream = new FileOutputStream(file)) {
+			JAXBContext context = JAXBContext.newInstance(AppOptions.class);
+			Marshaller marshaller = context.createMarshaller();
+			marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+			marshaller.marshal(settings, stream);
+		} catch (JAXBException | IOException ex) {
+			ex.printStackTrace();
 		}
 	}
 

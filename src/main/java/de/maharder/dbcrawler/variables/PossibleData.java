@@ -1,4 +1,4 @@
-package de.maharder.dbcrawler.variables;
+package de.maharder.dbcrawler;
 
 public class PossibleData {
 
