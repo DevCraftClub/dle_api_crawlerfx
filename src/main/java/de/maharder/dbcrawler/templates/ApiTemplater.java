@@ -1,12 +1,10 @@
 package de.maharder.dbcrawler.templates;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import de.maharder.dbcrawler.apiObject.*;
+import de.maharder.dbcrawler.controller.FileController;
 import de.maharder.dbcrawler.controller.Settings;
 import de.maharder.dbcrawler.variables.AppOptions;
 import de.maharder.dbcrawler.variables.GeneratorAnswer;
-import com.google.gson.Gson;
 
 import java.io.*;
 import java.util.*;
@@ -23,7 +21,6 @@ public class ApiTemplater {
 		AppOptions settings = Settings.loadSettings();
 		String path = settings.getOutputPath() + "/" + table.getName();
 		File output_path = new File(path);
-		File output_file = new File(path + "/" + table.getName() + "_apiitem.json");
 
 		if (!output_path.exists()) {
 			boolean dir_created = output_path.mkdirs();
@@ -33,24 +30,11 @@ public class ApiTemplater {
 			}
 		}
 
-		if (answer.isSuccess()) answer = exportJson(output_file, generateItem());
-
-
-		return answer;
-	}
-
-	private GeneratorAnswer exportJson(File path, Item item) throws IOException {
-		GeneratorAnswer answer = new GeneratorAnswer();
-
-		try (FileWriter writer = new FileWriter(path, false); BufferedWriter bufferedWriter = new BufferedWriter(writer)) {
-			Gson gson = new Gson();
-			String json = gson.toJson(item);
-			bufferedWriter.write(json);
-			answer.addMessage("Файл " + path.getName() + " был создан и сохранен");
-		} catch (IOException e) {
-			answer.setSuccess(false);
-			answer.addMessage("Невозможно сохранить файл: " + path.getName());
+		if (answer.isSuccess()) {
+			FileController fileController = new FileController(settings.getOutputPath(), table.getName() + "_apiitem.json", generateItem());
+			answer = fileController.exportJson();
 		}
+
 
 		return answer;
 	}
@@ -79,39 +63,9 @@ public class ApiTemplater {
 		return item;
 	}
 
-	private Auth generateAuth() {
-		Auth auth = new Auth();
-		auth.setType("apikey");
-		auth.addApikey(generateKeyValue("key", "x-api-key"));
-		auth.addApikey(generateKeyValue("value", "b1a57-77e2a-aa048-82a9f-f542d-dfd95-522b3"));
-
-        return auth;
-	}
-
-	private KeyValue generateKeyValue(String key, String value) {
-        return generateKeyValue(key, value, "string");
-	}
-
-	private KeyValue generateKeyValue(String key, String value, String type) {
-		KeyValue keyValue = new KeyValue();
-		keyValue.setKey(key);
-		keyValue.setValue(value);
-		keyValue.setType(type);
-
-        return keyValue;
-	}
-
 	private Event generateEvent(String name, String type) {
 		Event event = new Event();
-		event.setListen(name);
-
-		Script script = new Script();
-		script.setType(type);
-		List<String> exec = new ArrayList<>();
-		script.setExec(exec);
-
-		event.setScript(script);
-        return event;
+        return event.generateEvent(name, type);
 	}
 
 	private Response generateResponse(String name, String method, List<Header> header, Body body) {
@@ -149,7 +103,7 @@ public class ApiTemplater {
 		subItem.setProtocolProfileBehavior(getProtocolProfileBehavior);
 
 		Request request = new Request();
-		request.setAuth(generateAuth());
+		request.setAuth(new Auth().generateAuth());
 		request.setMethod(method.toUpperCase());
 		request.setHeader(header);
 		request.setDescription(description);

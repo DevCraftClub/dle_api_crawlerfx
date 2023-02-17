@@ -35,4 +35,26 @@ public class Auth {
 	public void setApikey(List<KeyValue> apikey) {
 		this.apikey = apikey;
 	}
+
+	public Auth generateAuth() {
+		Auth auth = new Auth();
+		auth.setType("apikey");
+		auth.addApikey(generateKeyValue("key", "x-api-key"));
+		auth.addApikey(generateKeyValue("value", "b1a57-77e2a-aa048-82a9f-f542d-dfd95-522b3"));
+
+		return auth;
+	}
+
+	private KeyValue generateKeyValue(String key, String value) {
+		return generateKeyValue(key, value, "string");
+	}
+
+	private KeyValue generateKeyValue(String key, String value, String type) {
+		KeyValue keyValue = new KeyValue();
+		keyValue.setKey(key);
+		keyValue.setValue(value);
+		keyValue.setType(type);
+
+		return keyValue;
+	}
 }

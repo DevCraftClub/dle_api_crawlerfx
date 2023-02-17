@@ -1,9 +1,11 @@
 package de.maharder.dbcrawler.templates;
 
+import de.maharder.dbcrawler.controller.FileController;
 import de.maharder.dbcrawler.variables.AppOptions;
 import de.maharder.dbcrawler.CrawlerApplication;
 import de.maharder.dbcrawler.controller.Settings;
 import de.maharder.dbcrawler.variables.GeneratorAnswer;
+import de.maharder.dbcrawler.variables.PossibleData;
 
 import java.io.*;
 import java.net.URL;
@@ -19,7 +21,6 @@ public class RouteTemplater {
 	public GeneratorAnswer generateTemplate() throws IOException {
 		AppOptions settings = Settings.loadSettings();
 		String path = settings.getOutputPath() + "/" + table.getName();
-		File output_file = new File(path + "/" + table.getName() + ".php");
 		File output_path = new File(path);
 		GeneratorAnswer answer = new GeneratorAnswer();
 
@@ -46,23 +47,13 @@ public class RouteTemplater {
 				StringBuilder possible_data = new StringBuilder();
 
 				for (DbTableAttribute attr : table.getAttributes()) {
-					possible_data.append("array(\n");
-					possible_data.append(String.format("\t'name'\t=>\t'%s',\n", attr.getName()));
-					possible_data.append(String.format("\t'type'\t=>\t'%s',\n", attr.getType()));
-					possible_data.append(String.format("\t'required'\t=>\t%s,\n", attr.isRequired()));
-					possible_data.append(String.format("\t'post'\t=>\t%s,\n", attr.isPost()));
-					possible_data.append(String.format("\t'length'\t=>\t%d\n", attr.getLength()));
-					possible_data.append("\t),\n");
+					possible_data.append(new PossibleData(attr.getName(), attr.getType(), attr.isRequired(), attr.isPost(), attr.getLength()));
 				}
 
 				template_text = template_text.replaceAll("%POSSIBLE_DATA%", possible_data.toString());
 
-				try (FileWriter fileWriter = new FileWriter(output_file, false)) {
-					fileWriter.write(template_text);
-				} catch (IOException e) {
-					answer.setSuccess(false);
-					answer.addMessage("Невозможно создать папку или получить доступ к пути: " + e.getMessage());
-				}
+				FileController fileController = new FileController(settings.getOutputPath(), table.getName() + ".php", template_text);
+				fileController.exportFile().getMessage().forEach(answer::addMessage);
 
 			} catch (IOException e) {
 				answer.setSuccess(false);

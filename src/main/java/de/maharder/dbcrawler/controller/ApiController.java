@@ -1,9 +1,14 @@
-package de.maharder.dbcrawler.templates;
+package de.maharder.dbcrawler.controller;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.Gson;
 import de.maharder.dbcrawler.apiObject.*;
-
+import de.maharder.dbcrawler.controller.Settings;
+import de.maharder.dbcrawler.templates.ApiTemplater;
+import de.maharder.dbcrawler.templates.DbTable;
+import de.maharder.dbcrawler.templates.DbTableAttribute;
+import de.maharder.dbcrawler.variables.AppOptions;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,10 +29,7 @@ public class ApiController {
     @JsonAnyGetter
     private List<ApiVariable> variable = new ArrayList<>();
 
-	private DbTable table;
-
-	public ApiController(DbTable table) {
-		setTable(table);
+	public ApiController() {
 	}
 
 	public ApiInfo getApiInfo() {
@@ -88,11 +90,30 @@ public class ApiController {
         }
     }
 
-	public DbTable getTable() {
-		return table;
-	}
+	public void generateApiObject(List<DbTable> tables) {
 
-	public void setTable(DbTable table) {
-		this.table = table;
+		AppOptions settings = Settings.loadSettings();
+		ApiInfo apiInfo = new ApiInfo();
+		apiInfo.setName(settings.getApiFileName());
+		setApiInfo(apiInfo);
+
+		for (DbTable table: tables) {
+			ApiTemplater api = new ApiTemplater(table);
+			addItem(api.generateItem());
+		}
+
+		setAuth(new Auth().generateAuth());
+
+		Event preEvent = new Event();
+		List<String> exec = new ArrayList<>();
+		exec.add("pm.variables.get(\"contentType\");");
+		addEvent(preEvent.generateEvent("prerequest", "text/javascript", exec));
+
+		Event testEvent = new Event();
+		addEvent(testEvent.generateEvent("test", "text/javascript"));
+
+		ApiVariable contentType = new ApiVariable();
+		contentType.setKey("contentType");
+		contentType.setValue("Content-Type");
 	}
 }

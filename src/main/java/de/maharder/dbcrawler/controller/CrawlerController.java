@@ -21,6 +21,8 @@ import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 import java.util.function.Consumer;
 
@@ -235,12 +237,15 @@ public class CrawlerController {
 
 			createLog(String.format("Выбрано %d таблиц из базы данных для экспорта", total));
 			toggleBtns(false);
-			int i = 0;
+
+			List<DbTable> dbTableList = new ArrayList<>();
+			final Runnable[] task = new Runnable[2];
+
 			clvTables.getCheckModel().getCheckedItems().forEach(new Consumer<String>() {
 				@Override
                 public void accept(String s) {
 
-					Runnable task = () -> {
+					task[0] = () -> {
 						try {
 							DbTable table = new DbTable(s);
 							ResultSet rs = db.query(String.format("DESCRIBE %s", s));
@@ -300,6 +305,8 @@ public class CrawlerController {
 								}
 							}
 
+							dbTableList.add(table);
+
 							now++;
 							progress();
 
@@ -307,11 +314,32 @@ public class CrawlerController {
 							e.printStackTrace();
 						}
 					};
-
-					Thread thread = new Thread(task);
-					thread.start();
                 }
 			});
+
+			task[1] = () -> {
+				if (cbCreateOnlyApiFile.isSelected() || cbConvertApiFiles.isSelected()) {
+					total++;
+					progress();
+
+					ApiController apiController = new ApiController();
+					apiController.generateApiObject(dbTableList);
+					FileController fileController = new FileController(options.getOutputPath(), options.getApiFileName() + ".json", apiController);
+					for (String m : fileController.exportJson().getMessage()) {
+						createLog(m);
+					}
+					now++;
+					progress();
+				}
+			};
+
+			Thread thread1 = new Thread(task[0]);
+			Thread thread2 = new Thread(task[1]);
+			thread1.start();
+			thread2.start();
+
+
+
 			toggleBtns(true);
 		}
 	}

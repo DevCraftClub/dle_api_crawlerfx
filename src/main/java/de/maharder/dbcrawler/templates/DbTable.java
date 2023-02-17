@@ -37,4 +37,6 @@ public class DbTable {
 	public void setAttributes(List<DbTableAttribute> attributes) {
 		this.attributes = attributes;
 	}
+
+
 }

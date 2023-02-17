@@ -29,4 +29,10 @@ public class Script {
 	public void setExec(List<String> exec) {
 		this.exec = exec;
 	}
+
+	public void addExec(String exec) {
+		if(!this.exec.contains(exec)) {
+			this.exec.add(exec);
+		}
+	}
 }
