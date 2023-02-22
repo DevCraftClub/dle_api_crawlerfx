@@ -1,4 +1,4 @@
-module de.maharder.dbcrawler {
+module dbcrawler {
 	requires javafx.controls;
 	requires javafx.fxml;
 	requires org.controlsfx.controls;
@@ -11,16 +11,10 @@ module de.maharder.dbcrawler {
 	requires com.fasterxml.jackson.databind;
 	requires com.google.gson;
 
-	opens de.maharder.dbcrawler to javafx.fxml;
-	opens de.maharder.dbcrawler.variables to jakarta.xml.bind;
-//	opens de.maharder.dbcrawler.controller to jakarta.xml.bind;
-	opens de.maharder.dbcrawler.controller to javafx.fxml;
-//	opens de.maharder.dbcrawler.apiObject to com.fasterxml.jackson.databind;
-	opens de.maharder.dbcrawler.apiObject to com.google.gson;
+	opens club.devcraft.dbcrawler.apiObject to com.google.gson;
+	opens club.devcraft.dbcrawler to com.google.gson, javafx.controls, javafx.fxml, jakarta.xml.bind;
+	opens club.devcraft.dbcrawler.controller to com.google.gson, javafx.fxml;
+	opens club.devcraft.dbcrawler.variables to com.google.gson, jakarta.xml.bind;
 
-	exports de.maharder.dbcrawler;
-	exports de.maharder.dbcrawler.variables;
-	exports de.maharder.dbcrawler.controller;
-	exports de.maharder.dbcrawler.templates;
-	exports de.maharder.dbcrawler.apiObject;
+	exports club.devcraft.dbcrawler;
 }

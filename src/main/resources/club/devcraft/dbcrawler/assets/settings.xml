@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<appOptions>
+    <dbHost>127.0.0.1</dbHost>
+    <dbName></dbName>
+    <dbPassword></dbPassword>
+    <dbPort>3306</dbPort>
+    <dbUser></dbUser>
+    <outputPath></outputPath>
+    <autoSave>false</autoSave>
+    <createSubfolders>false</createSubfolders>
+    <exportApi>false</exportApi>
+    <createApiFile>false</createApiFile>
+    <createApiFileOnly>false</createApiFileOnly>
+    <apiFileName>DLE-API</apiFileName>
+    <apiFilePath></apiFilePath>
+</appOptions>

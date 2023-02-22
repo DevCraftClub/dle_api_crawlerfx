@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.CheckListView?>
+<?import org.kordamp.bootstrapfx.scene.layout.Panel?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<Panel fx:id="panelMain" prefHeight="634.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="club.devcraft.dbcrawler.controller.CrawlerController">
+	<bottom>
+		<HBox prefHeight="38.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+			<children>
+				<ProgressBar fx:id="pbProgress" prefWidth="300.0" progress="0.0">
+					<HBox.margin>
+						<Insets left="5.0" top="10.0" />
+					</HBox.margin>
+				</ProgressBar>
+			</children>
+		</HBox>
+	</bottom>
+   <center>
+
+
+		<VBox fx:id="vboxMain" BorderPane.alignment="CENTER">
+			<HBox prefHeight="330.0">
+				<VBox prefHeight="324.0" prefWidth="450.0">
+					<children>
+						<HBox prefHeight="50.0" prefWidth="200.0">
+							<children>
+								<Label prefWidth="125.0" text="Хост">
+									<HBox.margin>
+										<Insets />
+									</HBox.margin>
+									<padding>
+										<Insets top="5.0" />
+									</padding>
+									<font>
+										<Font name="System Bold" size="13.0" />
+									</font>
+								</Label>
+								<TextField fx:id="tfDbHost" onInputMethodTextChanged="#tfOptionChanged" onKeyPressed="#tfOptionChangedKeyEvent" onKeyReleased="#tfOptionChangedKeyEvent" onKeyTyped="#tfOptionChangedKeyEvent" prefHeight="26.0" prefWidth="270.0" />
+							</children>
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</HBox>
+						<HBox layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="200.0">
+							<children>
+								<Label prefWidth="125.0" text="Порт">
+									<font>
+										<Font name="System Bold" size="13.0" />
+									</font>
+								</Label>
+								<TextField fx:id="tfDbPort" onInputMethodTextChanged="#tfOptionChanged" onKeyPressed="#tfOptionChangedKeyEvent" onKeyReleased="#tfOptionChangedKeyEvent" onKeyTyped="#tfOptionChangedKeyEvent" prefHeight="26.0" prefWidth="270.0" />
+							</children>
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</HBox>
+						<HBox layoutX="10.0" layoutY="110.0" prefHeight="50.0" prefWidth="200.0">
+							<children>
+								<Label prefWidth="125.0" text="Пользователь">
+									<padding>
+										<Insets top="5.0" />
+									</padding>
+									<font>
+										<Font name="System Bold" size="13.0" />
+									</font>
+								</Label>
+								<TextField fx:id="tfDbUser" onInputMethodTextChanged="#tfOptionChanged" onKeyPressed="#tfOptionChangedKeyEvent" onKeyReleased="#tfOptionChangedKeyEvent" onKeyTyped="#tfOptionChangedKeyEvent" prefHeight="26.0" prefWidth="270.0" />
+							</children>
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</HBox>
+						<HBox layoutX="20.0" layoutY="176.0" prefHeight="50.0" prefWidth="200.0">
+							<children>
+								<Label prefWidth="125.0" text="Пароль">
+									<font>
+										<Font name="System Bold" size="13.0" />
+									</font>
+								</Label>
+								<TextField fx:id="tfDbPw" onInputMethodTextChanged="#tfOptionChanged" onKeyPressed="#tfOptionChangedKeyEvent" onKeyReleased="#tfOptionChangedKeyEvent" onKeyTyped="#tfOptionChangedKeyEvent" prefHeight="26.0" prefWidth="270.0" />
+							</children>
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</HBox>
+						<HBox layoutX="10.0" layoutY="176.0" onInputMethodTextChanged="#tfOptionChanged" onKeyPressed="#tfOptionChangedKeyEvent" onKeyReleased="#tfOptionChangedKeyEvent" onKeyTyped="#tfOptionChangedKeyEvent" prefHeight="50.0" prefWidth="200.0">
+							<children>
+								<Label prefWidth="125.0" text="База данных">
+									<font>
+										<Font name="System Bold" size="13.0" />
+									</font>
+								</Label>
+								<TextField fx:id="tfDbName" onInputMethodTextChanged="#tfOptionChanged" onKeyPressed="#tfOptionChangedKeyEvent" onKeyReleased="#tfOptionChangedKeyEvent" onKeyTyped="#tfOptionChangedKeyEvent" prefHeight="26.0" prefWidth="270.0" />
+							</children>
+							<padding>
+								<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+							</padding>
+						</HBox>
+						<HBox prefHeight="50.0" prefWidth="200.0">
+							<children>
+								<Label prefWidth="125.0" text="Папка вывода">
+									<font>
+										<Font name="System Bold" size="13.0" />
+									</font>
+									<HBox.margin>
+										<Insets left="5.0" />
+									</HBox.margin>
+								</Label>
+								<TextField fx:id="tfFolderSelect" onInputMethodTextChanged="#tfOptionChanged" onKeyPressed="#tfOptionChangedKeyEvent" onKeyReleased="#tfOptionChangedKeyEvent" onKeyTyped="#tfOptionChangedKeyEvent" prefHeight="24.0" prefWidth="164.0">
+									<HBox.margin>
+										<Insets right="10.0" />
+									</HBox.margin>
+									<tooltip>
+										<Tooltip fx:id="ttTargetFolder" text="В эту папку будут экспортированы файлы для рутинга API" />
+									</tooltip>
+								</TextField>
+								<Button fx:id="btnFolderSelect" mnemonicParsing="false" onAction="#btnFolderSelectClick" text="Выбрать">
+									<graphic>
+										<FontIcon iconLiteral="mdi-folder-multiple" iconSize="14" />
+									</graphic>
+								</Button>
+							</children>
+						</HBox>
+						<ButtonBar prefHeight="40.0" prefWidth="200.0">
+							<buttons>
+								<Button fx:id="btnDbCheck" mnemonicParsing="false" onAction="#btnConnectionCheck" prefHeight="24.0" text="1. Проверить">
+									<graphic>
+										<FontIcon iconColor="WHITE" iconLiteral="mdi-refresh" iconSize="14" />
+									</graphic>
+									<tooltip>
+										<Tooltip text="1. Шаг: Проверяет соединение к базе данных" />
+									</tooltip>
+								</Button>
+								<Button fx:id="btnDbGetTables" disable="true" layoutX="318.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnDbGetTablesClick" prefHeight="24.0" text="2. Загрузить таблицы">
+									<graphic>
+										<FontIcon iconLiteral="mdi-table-column-width" iconSize="14" />
+									</graphic>
+									<tooltip>
+										<Tooltip text="2. Шаг: Функция загружает в список все таблицы в указанной базе данных" />
+									</tooltip>
+								</Button>
+								<Button fx:id="btnSaveSettings" mnemonicParsing="false" onAction="#btnSaveSettingsClick" text="Сохранить">
+									<graphic>
+										<FontIcon iconColor="WHITE" iconLiteral="mdi-content-save" iconSize="14" />
+									</graphic>
+									<tooltip>
+										<Tooltip text="Сохраняет настройки и введённые данные при последующем запуске" />
+									</tooltip>
+								</Button>
+							</buttons>
+							<VBox.margin>
+								<Insets bottom="10.0" right="10.0" top="20.0" />
+							</VBox.margin>
+						</ButtonBar>
+					</children>
+					<HBox.margin>
+						<Insets top="5.0" />
+					</HBox.margin>
+					<padding>
+						<Insets left="10.0" />
+					</padding>
+				</VBox>
+				<VBox prefHeight="328.0" prefWidth="450.0">
+					<children>
+						<CheckListView fx:id="clvTables" prefHeight="277.0">
+                     <VBox.margin>
+                        <Insets right="10.0" top="10.0" />
+                     </VBox.margin></CheckListView>
+						<ButtonBar buttonMinWidth="100.0" maxWidth="440.0" prefHeight="27.0">
+							<buttons>
+								<Button fx:id="btnInfo" maxWidth="90.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#btnInfoClick" prefHeight="24.0" text="Инфо">
+									<graphic>
+										<FontIcon iconColor="WHITE" iconLiteral="mdi-information-outline" iconSize="14" />
+									</graphic>
+									<tooltip>
+										<Tooltip text="Выводит информацию о программе" />
+									</tooltip>
+								</Button>
+								<Button fx:id="btnStart" disable="true" maxWidth="125.0" mnemonicParsing="false" onAction="#btnStartClick" text="3. Начать">
+									<graphic>
+										<FontIcon iconColor="WHITE" iconLiteral="mdi-inbox-arrow-down" iconSize="18" />
+									</graphic>
+									<tooltip>
+										<Tooltip text="3. Шаг: Обрабатывает выбранные таблицы в файлы" />
+									</tooltip>
+								</Button>
+								<Button fx:id="btnSelectAllTables" disable="true" maxWidth="220.0" minWidth="180.0" mnemonicParsing="false" onAction="#btnSelectAllTablesClick" prefHeight="24.0" text="Выбрать все">
+									<graphic>
+										<FontIcon iconColor="WHITE" iconLiteral="mdi-checkbox-multiple-marked-outline" iconSize="14" />
+									</graphic>
+									<tooltip>
+										<Tooltip text="Выбирает все таблицы в списке или убирает выбранное" />
+									</tooltip>
+								</Button>
+							</buttons>
+							<VBox.margin>
+								<Insets bottom="10.0" right="10.0" top="10.0" />
+							</VBox.margin>
+						</ButtonBar>
+					</children>
+				</VBox>
+			</HBox>
+			<TabPane prefHeight="270.0" prefWidth="862.0" tabClosingPolicy="UNAVAILABLE">
+				<tabs>
+					<Tab fx:id="tabLogs" text="Вывод логов">
+						<content>
+							<ListView fx:id="lvLogsView" prefHeight="235.0" prefWidth="800.0" />
+						</content>
+					</Tab>
+					<Tab fx:id="tabSettings" text="Настройки">
+						<content>
+							<VBox prefHeight="223.0" prefWidth="862.0">
+								<children>
+									<HBox>
+										<children>
+											<CheckBox fx:id="cbAutoSave" mnemonicParsing="false" text="Автосохранение">
+												<tooltip>
+													<Tooltip text="После каждого ввода информации в настройки и / или изменения настройки будут сохранены без уведомления в выводе логов" />
+												</tooltip>
+												<padding>
+													<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+												</padding>
+											</CheckBox>
+											<Separator orientation="VERTICAL">
+												<HBox.margin>
+													<Insets left="5.0" right="5.0" />
+												</HBox.margin>
+											</Separator>
+											<CheckBox fx:id="cbCreateSubFolder" mnemonicParsing="false" text="Создавать подпапки">
+												<tooltip>
+													<Tooltip text="Для каждой таблицы будут создаваться отдельные папки, куда будут сохраняться файлы" />
+												</tooltip>
+												<padding>
+													<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+												</padding>
+											</CheckBox>
+										</children>
+										<VBox.margin>
+											<Insets bottom="10.0" />
+										</VBox.margin>
+									</HBox>
+									<Separator prefWidth="200.0">
+										<VBox.margin>
+											<Insets bottom="10.0" />
+										</VBox.margin>
+									</Separator>
+									<HBox>
+										<children>
+											<CheckBox fx:id="cbExportApi" text="Создавать файлы для API">
+												<padding>
+													<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+												</padding>
+												<tooltip>
+													<Tooltip text="Создаёт для программы Postman файлы в формате json с постфиксом _apiitem. Файл будет сохраняться, если опция созданий подпапок включена, в папку вместе с файлом рутинга." />
+												</tooltip>
+											</CheckBox>
+											<Separator orientation="VERTICAL">
+												<HBox.margin>
+													<Insets left="5.0" right="5.0" />
+												</HBox.margin>
+											</Separator>
+											<CheckBox fx:id="cbExportApiFile" text="Создавать единый файл API">
+												<padding>
+													<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+												</padding>
+												<tooltip>
+													<Tooltip text="Создаёт готовый файл для импорта в Postman с выбранными таблицами" />
+												</tooltip>
+											</CheckBox>
+											<Separator orientation="VERTICAL">
+												<HBox.margin>
+													<Insets left="5.0" right="5.0" />
+												</HBox.margin>
+											</Separator>
+											<CheckBox fx:id="cbCreateOnlyApiFile" text="Создавать только единый файл">
+												<padding>
+													<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+												</padding>
+												<tooltip>
+													<Tooltip text="Программа не создаёт отдельные файлы для API, а только один единый" />
+												</tooltip>
+											</CheckBox>
+										</children>
+										<VBox.margin>
+											<Insets bottom="10.0" />
+										</VBox.margin>
+									</HBox>
+									<Separator>
+										<VBox.margin>
+											<Insets bottom="10.0" />
+										</VBox.margin>
+									</Separator>
+									<HBox>
+										<children>
+											<Label text="Название единого файла">
+												<padding>
+													<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+												</padding>
+												<font>
+													<Font name="System Bold" size="13.0" />
+												</font>
+											</Label>
+											<TextField fx:id="tfApiFileName" onInputMethodTextChanged="#tfOptionChanged" onKeyPressed="#tfOptionChangedKeyEvent" onKeyReleased="#tfOptionChangedKeyEvent" onKeyTyped="#tfOptionChangedKeyEvent">
+												<padding>
+													<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+												</padding>
+												<HBox.margin>
+													<Insets left="20.0" />
+												</HBox.margin>
+											</TextField>
+										</children>
+										<VBox.margin>
+											<Insets bottom="10.0" />
+										</VBox.margin>
+									</HBox>
+									<Separator>
+										<VBox.margin>
+											<Insets bottom="10.0" />
+										</VBox.margin>
+									</Separator>
+									<HBox layoutX="20.0" layoutY="48.0">
+										<children>
+											<Label text="Путь экспорта API-файла">
+												<padding>
+													<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+												</padding>
+												<font>
+													<Font name="System Bold" size="13.0" />
+												</font>
+											</Label>
+											<TextField fx:id="tfApiFilePath" onInputMethodTextChanged="#tfOptionChanged" onKeyPressed="#tfOptionChangedKeyEvent" onKeyReleased="#tfOptionChangedKeyEvent" onKeyTyped="#tfOptionChangedKeyEvent">
+												<padding>
+													<Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+												</padding>
+												<HBox.margin>
+													<Insets left="21.0" />
+												</HBox.margin>
+
+												<tooltip>
+													<Tooltip text="Оставить пустым, если нужно экспортировать в папку вывода. Если нужно вывести в другую папку, то указываем путь." />
+												</tooltip>
+											</TextField>
+											<Button fx:id="btnApiFilePath" mnemonicParsing="false" onAction="#btnApiFilePathClick" text="Выбрать">
+												<HBox.margin>
+													<Insets left="10.0" />
+												</HBox.margin>
+												<graphic>
+													<FontIcon iconLiteral="mdi-folder-multiple" iconSize="14" />
+												</graphic>
+											</Button>
+											<Button mnemonicParsing="false" style="-fx-background-color: transparent;">
+												<graphic>
+													<FontIcon iconLiteral="mdi-information-outline" iconSize="20" />
+												</graphic>
+												<HBox.margin>
+													<Insets top="-3.0" />
+												</HBox.margin>
+												<tooltip>
+													<Tooltip text="Оставить пустым, если нужно экспортировать в папку вывода. Если нужно вывести в другую папку, то указываем путь." />
+												</tooltip>
+                                    <cursor>
+                                       <Cursor fx:constant="HAND" />
+                                    </cursor>
+											</Button>
+										</children>
+										<VBox.margin>
+											<Insets bottom="5.0" />
+										</VBox.margin>
+									</HBox>
+								</children>
+								<padding>
+									<Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+								</padding>
+							</VBox>
+						</content>
+					</Tab>
+				</tabs>
+			</TabPane>
+
+		</VBox>
+   </center>
+</Panel>

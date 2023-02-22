@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="dbcrawler" default="all">
+  
+  
+  <property file="dbcrawler.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="off"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*.yarb/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.egg"/>
+    <include name="*.klib"/>
+    <include name="*.jar"/>
+    <include name="*.swc"/>
+    <include name="*.war"/>
+    <include name="*.zip"/>
+    <include name="*.ear"/>
+    <include name="*.ane"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.openjdk-17" value="${jdk.home.openjdk-17}/bin"/>
+  <path id="jdk.classpath.openjdk-17">
+    <fileset dir="${jdk.home.openjdk-17}">
+      <include name="../openjdk-17.0.2!/java.base"/>
+      <include name="../openjdk-17.0.2!/java.compiler"/>
+      <include name="../openjdk-17.0.2!/java.datatransfer"/>
+      <include name="../openjdk-17.0.2!/java.desktop"/>
+      <include name="../openjdk-17.0.2!/java.instrument"/>
+      <include name="../openjdk-17.0.2!/java.logging"/>
+      <include name="../openjdk-17.0.2!/java.management"/>
+      <include name="../openjdk-17.0.2!/java.management.rmi"/>
+      <include name="../openjdk-17.0.2!/java.naming"/>
+      <include name="../openjdk-17.0.2!/java.net.http"/>
+      <include name="../openjdk-17.0.2!/java.prefs"/>
+      <include name="../openjdk-17.0.2!/java.rmi"/>
+      <include name="../openjdk-17.0.2!/java.scripting"/>
+      <include name="../openjdk-17.0.2!/java.se"/>
+      <include name="../openjdk-17.0.2!/java.security.jgss"/>
+      <include name="../openjdk-17.0.2!/java.security.sasl"/>
+      <include name="../openjdk-17.0.2!/java.smartcardio"/>
+      <include name="../openjdk-17.0.2!/java.sql"/>
+      <include name="../openjdk-17.0.2!/java.sql.rowset"/>
+      <include name="../openjdk-17.0.2!/java.transaction.xa"/>
+      <include name="../openjdk-17.0.2!/java.xml"/>
+      <include name="../openjdk-17.0.2!/java.xml.crypto"/>
+      <include name="../openjdk-17.0.2!/jdk.accessibility"/>
+      <include name="../openjdk-17.0.2!/jdk.attach"/>
+      <include name="../openjdk-17.0.2!/jdk.charsets"/>
+      <include name="../openjdk-17.0.2!/jdk.compiler"/>
+      <include name="../openjdk-17.0.2!/jdk.crypto.cryptoki"/>
+      <include name="../openjdk-17.0.2!/jdk.crypto.ec"/>
+      <include name="../openjdk-17.0.2!/jdk.dynalink"/>
+      <include name="../openjdk-17.0.2!/jdk.editpad"/>
+      <include name="../openjdk-17.0.2!/jdk.hotspot.agent"/>
+      <include name="../openjdk-17.0.2!/jdk.httpserver"/>
+      <include name="../openjdk-17.0.2!/jdk.incubator.concurrent"/>
+      <include name="../openjdk-17.0.2!/jdk.incubator.vector"/>
+      <include name="../openjdk-17.0.2!/jdk.internal.ed"/>
+      <include name="../openjdk-17.0.2!/jdk.internal.jvmstat"/>
+      <include name="../openjdk-17.0.2!/jdk.internal.le"/>
+      <include name="../openjdk-17.0.2!/jdk.internal.opt"/>
+      <include name="../openjdk-17.0.2!/jdk.internal.vm.ci"/>
+      <include name="../openjdk-17.0.2!/jdk.internal.vm.compiler"/>
+      <include name="../openjdk-17.0.2!/jdk.internal.vm.compiler.management"/>
+      <include name="../openjdk-17.0.2!/jdk.jartool"/>
+      <include name="../openjdk-17.0.2!/jdk.javadoc"/>
+      <include name="../openjdk-17.0.2!/jdk.jcmd"/>
+      <include name="../openjdk-17.0.2!/jdk.jconsole"/>
+      <include name="../openjdk-17.0.2!/jdk.jdeps"/>
+      <include name="../openjdk-17.0.2!/jdk.jdi"/>
+      <include name="../openjdk-17.0.2!/jdk.jdwp.agent"/>
+      <include name="../openjdk-17.0.2!/jdk.jfr"/>
+      <include name="../openjdk-17.0.2!/jdk.jlink"/>
+      <include name="../openjdk-17.0.2!/jdk.jpackage"/>
+      <include name="../openjdk-17.0.2!/jdk.jshell"/>
+      <include name="../openjdk-17.0.2!/jdk.jsobject"/>
+      <include name="../openjdk-17.0.2!/jdk.jstatd"/>
+      <include name="../openjdk-17.0.2!/jdk.localedata"/>
+      <include name="../openjdk-17.0.2!/jdk.management"/>
+      <include name="../openjdk-17.0.2!/jdk.management.agent"/>
+      <include name="../openjdk-17.0.2!/jdk.management.jfr"/>
+      <include name="../openjdk-17.0.2!/jdk.naming.dns"/>
+      <include name="../openjdk-17.0.2!/jdk.naming.rmi"/>
+      <include name="../openjdk-17.0.2!/jdk.net"/>
+      <include name="../openjdk-17.0.2!/jdk.nio.mapmode"/>
+      <include name="../openjdk-17.0.2!/jdk.random"/>
+      <include name="../openjdk-17.0.2!/jdk.sctp"/>
+      <include name="../openjdk-17.0.2!/jdk.security.auth"/>
+      <include name="../openjdk-17.0.2!/jdk.security.jgss"/>
+      <include name="../openjdk-17.0.2!/jdk.unsupported"/>
+      <include name="../openjdk-17.0.2!/jdk.unsupported.desktop"/>
+      <include name="../openjdk-17.0.2!/jdk.xml.dom"/>
+      <include name="../openjdk-17.0.2!/jdk.zipfs"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.openjdk-17}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.openjdk-17}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.openjdk-17"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.maven:_com.dlsc.formsfx:formsfx-core:11.5.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/dlsc/formsfx/formsfx-core/11.5.0/formsfx-core-11.5.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.fasterxml.jackson.core:jackson-annotations:2.14.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/fasterxml/jackson/core/jackson-annotations/2.14.0/jackson-annotations-2.14.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.fasterxml.jackson.core:jackson-core:2.14.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/fasterxml/jackson/core/jackson-core/2.14.2/jackson-core-2.14.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.fasterxml.jackson.core:jackson-databind:2.14.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/fasterxml/jackson/core/jackson-databind/2.14.2/jackson-databind-2.14.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.google.code.gson:gson:2.8.9.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.google.protobuf:protobuf-java:3.21.9.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/google/protobuf/protobuf-java/3.21.9/protobuf-java-3.21.9.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.mysql:mysql-connector-j:8.0.32.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/mysql/mysql-connector-j/8.0.32/mysql-connector-j-8.0.32.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.sun.xml.bind:jaxb-core:4.0.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/sun/xml/bind/jaxb-core/4.0.0/jaxb-core-4.0.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_com.sun.xml.bind:jaxb-impl:4.0.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/sun/xml/bind/jaxb-impl/4.0.0/jaxb-impl-4.0.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_jakarta.activation:jakarta.activation-api:2.1.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/jakarta/activation/jakarta.activation-api/2.1.0/jakarta.activation-api-2.1.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_jakarta.xml.bind:jakarta.xml.bind-api:4.0.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/jakarta/xml/bind/jakarta.xml.bind-api/4.0.0/jakarta.xml.bind-api-4.0.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.apiguardian:apiguardian-api:1.1.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.controlsfx:controlsfx:11.1.2.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/controlsfx/controlsfx/11.1.2/controlsfx-11.1.2.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.eclipse.angus:angus-activation:1.0.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/eclipse/angus/angus-activation/1.0.0/angus-activation-1.0.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.junit.jupiter:junit-jupiter-api:5.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-api/5.9.1/junit-jupiter-api-5.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.junit.jupiter:junit-jupiter-engine:5.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/junit/jupiter/junit-jupiter-engine/5.9.1/junit-jupiter-engine-5.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.junit.platform:junit-platform-commons:1.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/junit/platform/junit-platform-commons/1.9.1/junit-platform-commons-1.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.junit.platform:junit-platform-engine:1.9.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/junit/platform/junit-platform-engine/1.9.1/junit-platform-engine-1.9.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/kordamp/bootstrapfx/bootstrapfx-core/0.4.0/bootstrapfx-core-0.4.0.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.kordamp.ikonli:ikonli-core:12.3.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/kordamp/ikonli/ikonli-core/12.3.1/ikonli-core-12.3.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.kordamp.ikonli:ikonli-javafx:12.3.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/kordamp/ikonli/ikonli-javafx/12.3.1/ikonli-javafx-12.3.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.kordamp.ikonli:ikonli-materialdesign-pack:12.3.1.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/kordamp/ikonli/ikonli-materialdesign-pack/12.3.1/ikonli-materialdesign-pack-12.3.1.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.openjfx:javafx-base:21-ea+5.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/openjfx/javafx-base/21-ea+5/javafx-base-21-ea+5.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.openjfx:javafx-base:linux:21-ea+5.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/openjfx/javafx-base/21-ea+5/javafx-base-21-ea+5-linux.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.openjfx:javafx-controls:19.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/openjfx/javafx-controls/19/javafx-controls-19.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.openjfx:javafx-controls:linux:19.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/openjfx/javafx-controls/19/javafx-controls-19-linux.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.openjfx:javafx-fxml:19.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/openjfx/javafx-fxml/19/javafx-fxml-19.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.openjfx:javafx-fxml:linux:19.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/openjfx/javafx-fxml/19/javafx-fxml-19-linux.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.openjfx:javafx-graphics:21-ea+5.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/openjfx/javafx-graphics/21-ea+5/javafx-graphics-21-ea+5.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.openjfx:javafx-graphics:linux:21-ea+5.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/openjfx/javafx-graphics/21-ea+5/javafx-graphics-21-ea+5-linux.jar"/>
+  </path>
+  
+  <path id="library.maven:_org.opentest4j:opentest4j:1.2.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0.jar"/>
+  </path>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module dbCrawler -->
+  
+  <dirname property="module.dbcrawler.basedir" file="${ant.file}"/>
+  
+  
+  <property name="module.jdk.home.dbcrawler" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.dbcrawler" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.dbcrawler" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.dbcrawler" value="-encoding UTF-8 -source 17 -target 17 ${compiler.args}"/>
+  
+  <property name="dbcrawler.output.dir" value="${module.dbcrawler.basedir}/target/classes"/>
+  <property name="dbcrawler.testoutput.dir" value="${module.dbcrawler.basedir}/target/test-classes"/>
+  
+  <path id="dbcrawler.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="dbcrawler.module.production.classpath">
+    <path refid="${module.jdk.classpath.dbcrawler}"/>
+    <path refid="library.maven:_org.openjfx:javafx-controls:19.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-controls:linux:19.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-fxml:19.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-fxml:linux:19.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-graphics:21-ea+5.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-graphics:linux:21-ea+5.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-base:21-ea+5.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-base:linux:21-ea+5.classpath"/>
+    <path refid="library.maven:_org.controlsfx:controlsfx:11.1.2.classpath"/>
+    <path refid="library.maven:_com.dlsc.formsfx:formsfx-core:11.5.0.classpath"/>
+    <path refid="library.maven:_org.kordamp.ikonli:ikonli-javafx:12.3.1.classpath"/>
+    <path refid="library.maven:_org.kordamp.ikonli:ikonli-core:12.3.1.classpath"/>
+    <path refid="library.maven:_org.kordamp.ikonli:ikonli-materialdesign-pack:12.3.1.classpath"/>
+    <path refid="library.maven:_org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0.classpath"/>
+    <path refid="library.maven:_com.mysql:mysql-connector-j:8.0.32.classpath"/>
+    <path refid="library.maven:_com.google.protobuf:protobuf-java:3.21.9.classpath"/>
+    <path refid="library.maven:_jakarta.xml.bind:jakarta.xml.bind-api:4.0.0.classpath"/>
+    <path refid="library.maven:_jakarta.activation:jakarta.activation-api:2.1.0.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-core:2.14.2.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-databind:2.14.2.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-annotations:2.14.0.classpath"/>
+    <path refid="library.maven:_com.google.code.gson:gson:2.8.9.classpath"/>
+  </path>
+  
+  <path id="dbcrawler.runtime.production.module.classpath">
+    <pathelement location="${dbcrawler.output.dir}"/>
+    <path refid="library.maven:_org.openjfx:javafx-controls:19.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-controls:linux:19.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-fxml:19.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-fxml:linux:19.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-graphics:21-ea+5.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-graphics:linux:21-ea+5.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-base:21-ea+5.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-base:linux:21-ea+5.classpath"/>
+    <path refid="library.maven:_org.controlsfx:controlsfx:11.1.2.classpath"/>
+    <path refid="library.maven:_com.dlsc.formsfx:formsfx-core:11.5.0.classpath"/>
+    <path refid="library.maven:_org.kordamp.ikonli:ikonli-javafx:12.3.1.classpath"/>
+    <path refid="library.maven:_org.kordamp.ikonli:ikonli-core:12.3.1.classpath"/>
+    <path refid="library.maven:_org.kordamp.ikonli:ikonli-materialdesign-pack:12.3.1.classpath"/>
+    <path refid="library.maven:_org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0.classpath"/>
+    <path refid="library.maven:_com.mysql:mysql-connector-j:8.0.32.classpath"/>
+    <path refid="library.maven:_com.google.protobuf:protobuf-java:3.21.9.classpath"/>
+    <path refid="library.maven:_jakarta.xml.bind:jakarta.xml.bind-api:4.0.0.classpath"/>
+    <path refid="library.maven:_jakarta.activation:jakarta.activation-api:2.1.0.classpath"/>
+    <path refid="library.maven:_com.sun.xml.bind:jaxb-impl:4.0.0.classpath"/>
+    <path refid="library.maven:_com.sun.xml.bind:jaxb-core:4.0.0.classpath"/>
+    <path refid="library.maven:_org.eclipse.angus:angus-activation:1.0.0.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-core:2.14.2.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-databind:2.14.2.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-annotations:2.14.0.classpath"/>
+    <path refid="library.maven:_com.google.code.gson:gson:2.8.9.classpath"/>
+  </path>
+  
+  <path id="dbcrawler.module.classpath">
+    <path refid="${module.jdk.classpath.dbcrawler}"/>
+    <pathelement location="${dbcrawler.output.dir}"/>
+    <path refid="library.maven:_org.openjfx:javafx-controls:19.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-controls:linux:19.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-fxml:19.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-fxml:linux:19.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-graphics:21-ea+5.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-graphics:linux:21-ea+5.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-base:21-ea+5.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-base:linux:21-ea+5.classpath"/>
+    <path refid="library.maven:_org.controlsfx:controlsfx:11.1.2.classpath"/>
+    <path refid="library.maven:_com.dlsc.formsfx:formsfx-core:11.5.0.classpath"/>
+    <path refid="library.maven:_org.kordamp.ikonli:ikonli-javafx:12.3.1.classpath"/>
+    <path refid="library.maven:_org.kordamp.ikonli:ikonli-core:12.3.1.classpath"/>
+    <path refid="library.maven:_org.kordamp.ikonli:ikonli-materialdesign-pack:12.3.1.classpath"/>
+    <path refid="library.maven:_org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0.classpath"/>
+    <path refid="library.maven:_org.junit.jupiter:junit-jupiter-api:5.9.1.classpath"/>
+    <path refid="library.maven:_org.opentest4j:opentest4j:1.2.0.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-commons:1.9.1.classpath"/>
+    <path refid="library.maven:_org.apiguardian:apiguardian-api:1.1.2.classpath"/>
+    <path refid="library.maven:_org.junit.jupiter:junit-jupiter-engine:5.9.1.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-engine:1.9.1.classpath"/>
+    <path refid="library.maven:_com.mysql:mysql-connector-j:8.0.32.classpath"/>
+    <path refid="library.maven:_com.google.protobuf:protobuf-java:3.21.9.classpath"/>
+    <path refid="library.maven:_jakarta.xml.bind:jakarta.xml.bind-api:4.0.0.classpath"/>
+    <path refid="library.maven:_jakarta.activation:jakarta.activation-api:2.1.0.classpath"/>
+    <path refid="library.maven:_com.sun.xml.bind:jaxb-impl:4.0.0.classpath"/>
+    <path refid="library.maven:_com.sun.xml.bind:jaxb-core:4.0.0.classpath"/>
+    <path refid="library.maven:_org.eclipse.angus:angus-activation:1.0.0.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-core:2.14.2.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-databind:2.14.2.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-annotations:2.14.0.classpath"/>
+    <path refid="library.maven:_com.google.code.gson:gson:2.8.9.classpath"/>
+  </path>
+  
+  <path id="dbcrawler.runtime.module.classpath">
+    <pathelement location="${dbcrawler.testoutput.dir}"/>
+    <pathelement location="${dbcrawler.output.dir}"/>
+    <path refid="library.maven:_org.openjfx:javafx-controls:19.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-controls:linux:19.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-fxml:19.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-fxml:linux:19.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-graphics:21-ea+5.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-graphics:linux:21-ea+5.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-base:21-ea+5.classpath"/>
+    <path refid="library.maven:_org.openjfx:javafx-base:linux:21-ea+5.classpath"/>
+    <path refid="library.maven:_org.controlsfx:controlsfx:11.1.2.classpath"/>
+    <path refid="library.maven:_com.dlsc.formsfx:formsfx-core:11.5.0.classpath"/>
+    <path refid="library.maven:_org.kordamp.ikonli:ikonli-javafx:12.3.1.classpath"/>
+    <path refid="library.maven:_org.kordamp.ikonli:ikonli-core:12.3.1.classpath"/>
+    <path refid="library.maven:_org.kordamp.ikonli:ikonli-materialdesign-pack:12.3.1.classpath"/>
+    <path refid="library.maven:_org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0.classpath"/>
+    <path refid="library.maven:_org.junit.jupiter:junit-jupiter-api:5.9.1.classpath"/>
+    <path refid="library.maven:_org.opentest4j:opentest4j:1.2.0.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-commons:1.9.1.classpath"/>
+    <path refid="library.maven:_org.apiguardian:apiguardian-api:1.1.2.classpath"/>
+    <path refid="library.maven:_org.junit.jupiter:junit-jupiter-engine:5.9.1.classpath"/>
+    <path refid="library.maven:_org.junit.platform:junit-platform-engine:1.9.1.classpath"/>
+    <path refid="library.maven:_com.mysql:mysql-connector-j:8.0.32.classpath"/>
+    <path refid="library.maven:_com.google.protobuf:protobuf-java:3.21.9.classpath"/>
+    <path refid="library.maven:_jakarta.xml.bind:jakarta.xml.bind-api:4.0.0.classpath"/>
+    <path refid="library.maven:_jakarta.activation:jakarta.activation-api:2.1.0.classpath"/>
+    <path refid="library.maven:_com.sun.xml.bind:jaxb-impl:4.0.0.classpath"/>
+    <path refid="library.maven:_com.sun.xml.bind:jaxb-core:4.0.0.classpath"/>
+    <path refid="library.maven:_org.eclipse.angus:angus-activation:1.0.0.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-core:2.14.2.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-databind:2.14.2.classpath"/>
+    <path refid="library.maven:_com.fasterxml.jackson.core:jackson-annotations:2.14.0.classpath"/>
+    <path refid="library.maven:_com.google.code.gson:gson:2.8.9.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.dbcrawler">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.dbcrawler">
+    <patternset refid="excluded.from.module.dbcrawler"/>
+  </patternset>
+  
+  <path id="dbcrawler.module.sourcepath">
+    <dirset dir="${module.dbcrawler.basedir}">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.dbcrawler" depends="compile.module.dbcrawler.production,compile.module.dbcrawler.tests" description="Compile module dbCrawler"/>
+  
+  <target name="compile.module.dbcrawler.production" description="Compile module dbCrawler; production classes">
+    <mkdir dir="${dbcrawler.output.dir}"/>
+    <javac destdir="${dbcrawler.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.dbcrawler}/javac">
+      <compilerarg line="${compiler.args.dbcrawler}"/>
+      <bootclasspath refid="dbcrawler.module.bootclasspath"/>
+      <classpath refid="dbcrawler.module.production.classpath"/>
+      <src refid="dbcrawler.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.dbcrawler"/>
+    </javac>
+    
+    <copy todir="${dbcrawler.output.dir}">
+      <fileset dir="${module.dbcrawler.basedir}/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.dbcrawler.basedir}/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.dbcrawler.tests" depends="compile.module.dbcrawler.production" description="compile module dbCrawler; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.dbcrawler" description="cleanup module">
+    <delete dir="${dbcrawler.output.dir}"/>
+    <delete dir="${dbcrawler.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.dbcrawler" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.dbcrawler" description="build all modules"/>
+  
+  <target name="all" depends="build.modules" description="build all"/>
+</project>
