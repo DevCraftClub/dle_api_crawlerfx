@@ -47,7 +47,7 @@ public class DbTableAttribute {
 	private String convertType(String type) {
 		return switch (type) {
 			case "int", "tinyint", "smallint", "mediumint" -> "integer";
-			case "varchar", "text" -> "string";
+			case "varchar", "text", "char" -> "string";
 			case "date" -> "DATE";
 			case "time" -> "time";
 			case "timestamp" -> "timestamp";
