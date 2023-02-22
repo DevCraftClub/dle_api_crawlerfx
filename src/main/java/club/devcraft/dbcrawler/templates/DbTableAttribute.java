@@ -104,4 +104,14 @@ public class DbTableAttribute {
 	public void setLength(int length) {
 		this.length = length;
 	}
+
+	public String getPossibleData() {
+		return "array(\n" +
+				String.format("\t'name'\t=>\t'%s',\n", getName()) +
+				String.format("\t'type'\t=>\t'%s',\n", getType()) +
+				String.format("\t'required'\t=>\t%s,\n", isRequired()) +
+				String.format("\t'post'\t=>\t%s,\n", isPost()) +
+				String.format("\t'length'\t=>\t%d\n", getLength()) +
+				"\t),\n";
+	}
 }

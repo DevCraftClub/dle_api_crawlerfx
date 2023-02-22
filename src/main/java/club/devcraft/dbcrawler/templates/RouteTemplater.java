@@ -1,7 +1,6 @@
 package club.devcraft.dbcrawler.templates;
 
 import club.devcraft.dbcrawler.controller.FileController;
-import club.devcraft.dbcrawler.variables.PossibleData;
 import club.devcraft.dbcrawler.variables.AppOptions;
 import club.devcraft.dbcrawler.CrawlerApplication;
 import club.devcraft.dbcrawler.controller.Settings;
@@ -48,7 +47,7 @@ public class RouteTemplater {
 				StringBuilder possible_data = new StringBuilder();
 
 				for (DbTableAttribute attr : table.getAttributes()) {
-					possible_data.append(new PossibleData(attr.getName(), attr.getType(), attr.isRequired(), attr.isPost(), attr.getLength()));
+					possible_data.append(attr.getPossibleData());
 				}
 
 				template_text = template_text.replaceAll("%POSSIBLE_DATA%", possible_data.toString());
