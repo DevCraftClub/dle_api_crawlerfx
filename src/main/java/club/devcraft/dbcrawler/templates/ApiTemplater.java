@@ -48,7 +48,7 @@ public class ApiTemplater {
 
 		SubItem getItem = generateSubItem(String.format("/api/v1/%s[/]", table.getName()), "GET", String.format("API GET запрос к таблице ```dle_%s``` для вывода и фильтрации данных", table.getName()), generateEmptyBody(), generateUrl(), attr_header);
 		SubItem postItem = generateSubItem(String.format("/api/v1/%s[/]", table.getName()), "POST", String.format("API POST запрос к таблице ```dle_%s``` для создания нового объекта Указываем ID объекта в ссылке запроса", table.getName()), generateBody(), generateUrl(), new ArrayList<>());
-		SubItem putItem = generateSubItem(String.format("/api/v1/%s/1[/]", table.getName()), "PUT", String.format("API PUT запрос к таблице ```dle_%s``` для её изменения. Указываем ID объекта в ссылке запроса", table.getName()), generateBody(), generateUrl(1), new ArrayList<>());
+		SubItem putItem = generateSubItem(String.format("/api/v1/%s/1[/]", table.getName()), "PUT", String.format("API PUT запрос к таблице ```dle_%s``` для её изменения. Указываем ID объекта в ссылке запроса", table.getName()), generateBody(false), generateUrl(1), new ArrayList<>());
 		SubItem deleteItem = generateSubItem(String.format("/api/v1/%s/1[/]", table.getName()), "DELETE", String.format("API DELETE запрос к таблице ```dle_%s``` для её удаления. Указываем ID объекта в ссылке запроса", table.getName()), new Body(), generateUrl(1), new ArrayList<>());
 
 		item.addItem(getItem);
@@ -161,6 +161,29 @@ public class ApiTemplater {
 					continue;
 				}
 			}
+
+			Urlencoded urlencoded = new Urlencoded();
+			urlencoded.setKey(h.getKey());
+			urlencoded.setValue(h.getValue());
+			urlencoded.setType(h.getType());
+
+			urlencoded.setDescription(String.format("%s%s", h.getDescription(), (required ? " (Обязательно к заполнению)" : "")));
+			urlencoded_list.add(urlencoded);
+		}
+
+		body.setUrlencoded(urlencoded_list);
+
+		return body;
+	}
+
+	private Body generateBody(boolean requiredAttr) {
+		Body body = new Body();
+		body.setMode("urlencoded");
+		List<Urlencoded> urlencoded_list = new ArrayList<Urlencoded>();
+
+		for (Header h : getHeaders()) {
+
+			boolean required = requiredAttr;
 
 			Urlencoded urlencoded = new Urlencoded();
 			urlencoded.setKey(h.getKey());
